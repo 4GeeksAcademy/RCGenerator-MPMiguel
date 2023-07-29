@@ -32,25 +32,25 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 40px; /* Increase font size */
+  font-size: 50px;
   font-weight: bold;
 }
 
 .suit {
-  font-size: 28px; /* Increase font size */
+  font-size: 35px;
   position: absolute;
 }
 
 .top-left {
-  top: 15px; /* Adjust position */
-  left: 15px; /* Adjust position */
+  top: 15px;
+  left: 15px;
 }
 
 .bottom-right {
-  bottom: 15px; /* Adjust position */
-  right: 15px; /* Adjust position */
+  bottom: 15px;
+  right: 15px;
 }
 
 .button-container {
-  margin-top: 10px; /* Add margin to separate buttons from the card */
+  margin-top: 10px;
 }
