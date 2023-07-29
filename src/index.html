@@ -18,11 +18,22 @@
     <title>Random Card Generator</title>
   </head>
   <body>
-    <div class="container-fluid text-center ms-auto">
-    <div class="card">
-      <span class="top-suit">&spades;</span>
-      <span id="number">1</span>
-      <span class="bottom-suit">&spades;</span>
+    <div>
+      <div class="text-center m-auto card-container">
+        <div class="card">
+          <span class="suit top-left" id="suit1"></span>
+          <span class="number" id="number"></span>
+          <span class="suit bottom-right" id="suit2"></span>
+        </div>
+      </div>
+      <div class="button-container text-center">
+        <button id="generateCard" class="btn bg-warning m-2 p-2">
+          New card
+        </button>
+        <button id="generateDeck" class="btn bg-danger text-white m-2 p-2">
+          New deck
+        </button>
+      </div>
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"

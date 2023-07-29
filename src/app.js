@@ -5,13 +5,12 @@ import "./style.css";
 import "./assets/img/rigo-baby.jpg";
 import "./assets/img/4geeks.ico";
 
-// const deck = document.querySelector("#palo1");
 const number = document.querySelector("#number");
-// const deck2 = document.querySelector("#palo2");
+
 // const botonEliminar = document.querySelector("#eliminar");
 // const botonPickOne = document.querySelector("#start");
 
-//LETS
+// variables
 const numbers = {
   1: "A",
   2: 1,
@@ -28,81 +27,49 @@ const numbers = {
   13: "K"
 };
 
-for (const item in numbers) {
-  console.log;
+const suit = {
+  heart: "\u2665",
+  spades: "\u2660",
+  clubs: "\u2663",
+  diamonds: "\u2666"
+};
+// functions
+const generateNumbers = () => {
+  let numbersIndex = Math.floor(Math.random() * 13) + 1;
+  return numbers[numbersIndex];
+};
+
+const values = Object.values(numbers);
+for (const value of values) {
+  console.log(value);
 }
-//FUNCIONES PARA EL WINDOW ON LOAD
-// const generatePalo = () => {
-//   let paloIndex = Math.floor(Math.random() * palos.length);
-//   return palos[paloIndex];
-// };
-// const generateNumber = () => {
-//   let numerosIndex = Math.floor(Math.random() * numeros.length);
-//   return numeros[numerosIndex];
-// };
 
-//LOOP PARA RECORRER LOS ARRAYS Y ME SUELTE COMBINACIONES AL AZAR
-//MIENTRAS HACE ITERACIONES, ME AGREGA LAS COMBINACIONES EN UN
-//NUEVO ARRAY VACIO
-// let mazoNuevoDeCartas = [];
-// let posicion = 0;
-// for (let i = 0; i < palos.length; i++) {
-//   for (let j = 0; j < numeros.length; j++) {
-//     let baraja = [palos[i], numeros[j]];
-//     mazoNuevoDeCartas.push(baraja);
-//     mazoNuevoDeCartas.sort(() => Math.random() - 0.5);
-//   }
-// }
+const generateSuit = () => {
+  let suitKeys = Object.keys(suit);
+  let suitIndex = Math.floor(Math.random() * suitKeys.length);
+  return suit[suitKeys[suitIndex]];
+};
 
-//FUNCION PARA BOTON 1
-//
-// const cartaAlAzar = () => {
-//   botonEliminar.disabled = false;
-//   let cartaParaMostrar = mazoNuevoDeCartas[posicion];
-//   deck.innerHTML = cartaParaMostrar[0];
-//   deck2.innerHTML = cartaParaMostrar[0];
-//   number.innerHTML = cartaParaMostrar[1];
-//   posicion = posicion + 1;
+const displayCard = () => {
+  const suit1 = document.getElementById("suit1");
+  const suit2 = document.getElementById("suit2");
+  const cardNumber = generateNumbers();
+  const cardSuit = generateSuit();
 
-//   if (posicion == mazoNuevoDeCartas.length - 1) {
-//     deck.innerHTML = "";
-//     deck2.innerHTML = "";
-//     number.innerHTML = "";
-//     botonPickOne.disabled = true;
-//     //console.log(mazoNuevoDeCartas);
-//     alert("Han salido todas las cartas");
-//   }
-// };
-//FUNCION PARA REINICIAR EL MAZO DE CARTAS, CUANDO PRESIONO RESET
-// const random = mazoNuevoDeCartas => {
-//   mazoNuevoDeCartas.sort(() => Math.random() - 0.5);
-//   return mazoNuevoDeCartas;
-// };
+  number.innerHTML = cardNumber;
 
-//FUNCION PARA EL BOTON 2
-// const borrar = () => {
-//   mazoNuevoDeCartas = random(mazoNuevoDeCartas);
-//   posicion = 0;
-//   number.innerHTML = "X";
-//   deck.innerHTML = "";
-//   deck2.innerHTML = "";
-//   botonPickOne.disabled = false;
-//   botonEliminar.disabled = true;
-// };
+  suit1.innerHTML = cardSuit;
+  suit2.innerHTML = cardSuit;
 
-//LISTENERS PARA BOTONES
+  if (cardSuit === suit.heart || cardSuit === suit.diamonds) {
+    suit1.style.color = "red";
+    suit2.style.color = "red";
+  } else {
+    suit1.style.color = "black";
+    suit2.style.color = "black";
+  }
+};
 
-//LISTENER BOTON 1
-// botonPickOne.addEventListener("click", cartaAlAzar);
-// start.addEventListener("click", cartaAlAzar);
+displayCard();
 
-//LISTENER BOTON 2
-// botonEliminar.addEventListener("click", borrar);
-
-//CUANDO CARGA LA PANTALLA, MUESTRA COMBINACIÓN DE CARTAS AL AZAR
-// window.onload = () => {
-//   deck.innerHTML = generatePalo();
-//   deck2.innerHTML = deck.innerHTML;
-//   number.innerHTML = generateNumber();
-//   botonEliminar.disabled = true;
-// };
+document.getElementById("generateCard").addEventListener("click", displayCard);
