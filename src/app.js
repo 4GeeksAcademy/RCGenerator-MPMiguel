@@ -1,16 +1,6 @@
-/* eslint-disable */
 import "bootstrap";
 import "./style.css";
 
-import "./assets/img/rigo-baby.jpg";
-import "./assets/img/4geeks.ico";
-
-const number = document.querySelector("#number");
-
-// const botonEliminar = document.querySelector("#eliminar");
-// const botonPickOne = document.querySelector("#start");
-
-// variables
 const numbers = {
   1: "A",
   2: 1,
@@ -33,43 +23,62 @@ const suit = {
   clubs: "\u2663",
   diamonds: "\u2666"
 };
-// functions
-const generateNumbers = () => {
-  let numbersIndex = Math.floor(Math.random() * 13) + 1;
-  return numbers[numbersIndex];
+
+let deck = [];
+
+const generateDeck = () => {
+  deck = [];
+  for (const numberValue of Object.values(numbers)) {
+    for (const suitValue of Object.values(suit)) {
+      deck.push({ number: numberValue, suit: suitValue });
+    }
+  }
 };
 
-const values = Object.values(numbers);
-for (const value of values) {
-  console.log(value);
-}
-
-const generateSuit = () => {
-  let suitKeys = Object.keys(suit);
-  let suitIndex = Math.floor(Math.random() * suitKeys.length);
-  return suit[suitKeys[suitIndex]];
+const drawCard = () => {
+  if (deck.length === 0) {
+    return null;
+  }
+  const randomIndex = Math.floor(Math.random() * deck.length);
+  const drawnCard = deck.splice(randomIndex, 1)[0];
+  return drawnCard;
 };
 
 const displayCard = () => {
   const suit1 = document.getElementById("suit1");
   const suit2 = document.getElementById("suit2");
-  const cardNumber = generateNumbers();
-  const cardSuit = generateSuit();
+  const number = document.getElementById("number");
+  const cardContainer = document.querySelector(".card");
 
-  number.innerHTML = cardNumber;
+  if (deck.length === 0) {
+    suit1.innerHTML = "";
+    suit2.innerHTML = "";
+    number.innerHTML = "Deck Empty";
+    cardContainer.classList.add("empty");
+    return;
+  }
 
-  suit1.innerHTML = cardSuit;
-  suit2.innerHTML = cardSuit;
+  const card = drawCard();
+  number.innerHTML = card.number;
+  suit1.innerHTML = card.suit;
+  suit2.innerHTML = card.suit;
 
-  if (cardSuit === suit.heart || cardSuit === suit.diamonds) {
+  if (card.suit === suit.heart || card.suit === suit.diamonds) {
     suit1.style.color = "red";
     suit2.style.color = "red";
   } else {
     suit1.style.color = "black";
     suit2.style.color = "black";
   }
+
+  cardContainer.classList.remove("empty");
 };
 
+generateDeck();
 displayCard();
 
 document.getElementById("generateCard").addEventListener("click", displayCard);
+document.getElementById("generateDeck").addEventListener("click", () => {
+  generateDeck();
+  displayCard();
+});
